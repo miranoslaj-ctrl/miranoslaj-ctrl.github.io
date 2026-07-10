@@ -544,10 +544,8 @@
             /*padding-bottom: 15px;
             padding-top: 15px;*/
             padding: 0;
-            position: fixed;
-            bottom: 0;
+            position: static;
             width: 100%;
-            z-index: 1000;
             height: 42px;
             display: flex;
             align-items: center;
@@ -555,11 +553,25 @@
         }
         
         .footer-top-line {
-            position: fixed;
+            position: static;
             left: 0;
             width: 100%;
             height: 16px;
-            bottom: 42px;
+        }
+
+        .footer-top-line svg {
+            display: block;
+            width: 100%;
+            height: 16px;
+        }
+
+        .footer-stack {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 58px; /* 16 + 42 */
+            z-index: 3000;
         }
         
         .footer-buttons {
@@ -2997,58 +3009,61 @@
     </div> 
 
     
-     <div class="footer-top-line">
-            <svg width="100%" height="16px">
-                <defs>
-                    <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#D0001A" />
-                        <stop offset="100%" stop-color="#000000" />
-                    </linearGradient>
-                </defs>
-                <rect width="100%" height="16px" fill="url(#footerGradient)" />
-            </svg>
-        </div>
+     
 
     <!-- Footer -->
-    <footer class="simple-footer" id="footer">
-        <!-- Footer top separator -->
-       
-        
-        <div class="container">
-            <div class="footer-buttons">
-                <button class="footer-btn" id="aboutBtn">
-                    <span><i class="bi bi-info-circle"></i> <span data-translate="about_us">O nas</span></span>
-                </button>
-                <button class="footer-btn" id="newsBtn">
-                    <span><i class="bi bi-sun"></i> <span data-translate="first_page">Aktualno/Novosti</span></span>
-                </button>
-                <button class="footer-btn" id="facebookBtn">
-                    <span><i class="bi bi-facebook"></i> Facebook</span>
-                </button>
-                
-                <!-- E-Trgovine dropdown 
-                <div class="footer-dropdown" id="shopDropdown">
-                    <button class="footer-btn">
-                        <span><i class="bi bi-cart"></i> <span data-translate="e_shop">E-Trgovine</span></span>
-                    </button>
-                    <div class="footer-dropdown-menu">
-                        <a href="https://www.agro-clair.si" target="_blank" class="footer-dropdown-item">
-                            <i class="bi bi-shop"></i> <span data-translate="retail_shop">Spletna Trgovina (maloprodaja)</span>
-                        </a>
-                        <a href="#" class="footer-dropdown-item" id="b2bBtn">
-                            <i class="bi bi-link-45deg"></i> <span data-translate="b2b_shop">Spletna Veleprodaja (B2B)</span>
-                        </a>
-                    </div>
-                </div> -->
+     <div class="footer-stack">
 
-                <button class="footer-btn" id="wisdomToggleBtn">
-                      <span><i class="bi bi-lightbulb"></i> <span data-translate="thought_of_day">Misel Dneva</span></span>
-                </button>
-            </div>
+        <div class="footer-top-line">
+                <svg width="100%" height="16px">
+                    <defs>
+                        <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#D0001A" />
+                            <stop offset="100%" stop-color="#000000" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="100%" height="16px" fill="url(#footerGradient)" />
+                </svg>
         </div>
+
+        <footer class="simple-footer" id="footer">            
+            <div class="container">
+                <div class="footer-buttons">
+                    <button class="footer-btn" id="aboutBtn">
+                        <span><i class="bi bi-info-circle"></i> <span data-translate="about_us">O nas</span></span>
+                    </button>
+                    <button class="footer-btn" id="newsBtn">
+                        <span><i class="bi bi-sun"></i> <span data-translate="first_page">Aktualno/Novosti</span></span>
+                    </button>
+                    <button class="footer-btn" id="facebookBtn">
+                        <span><i class="bi bi-facebook"></i> Facebook</span>
+                    </button>
+                    
+                    <!-- E-Trgovine dropdown 
+                    <div class="footer-dropdown" id="shopDropdown">
+                        <button class="footer-btn">
+                            <span><i class="bi bi-cart"></i> <span data-translate="e_shop">E-Trgovine</span></span>
+                        </button>
+                        <div class="footer-dropdown-menu">
+                            <a href="https://www.agro-clair.si" target="_blank" class="footer-dropdown-item">
+                                <i class="bi bi-shop"></i> <span data-translate="retail_shop">Spletna Trgovina (maloprodaja)</span>
+                            </a>
+                            <a href="#" class="footer-dropdown-item" id="b2bBtn">
+                                <i class="bi bi-link-45deg"></i> <span data-translate="b2b_shop">Spletna Veleprodaja (B2B)</span>
+                            </a>
+                        </div>
+                    </div> -->
+
+                    <button class="footer-btn" id="wisdomToggleBtn">
+                        <span><i class="bi bi-lightbulb"></i> <span data-translate="thought_of_day">Misel Dneva</span></span>
+                    </button>
+                </div>
+            </div>   
         
-      
-    </footer>
+        </footer>
+
+    </div>
+
     
     <!-- Bootstrap & Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
