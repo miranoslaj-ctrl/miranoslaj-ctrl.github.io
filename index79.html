@@ -592,20 +592,25 @@
             border-radius: 8px;
             padding: 0 14px;
             font-weight: 500;
-            display: flex;
+            display: inline-flex;
             align-items: center;
             transition: all 0.3s;
             font-size: 0.85rem;
             position: relative;
             overflow: hidden;
             height: 26px;
-            transform: skewX(calc(-1 * var(--skew-angle)));        
+            transform: skewX(calc(-1 * var(--skew-angle)));
+            line-height: 1;
+            justify-content: center;
         }
-        
+
         .footer-btn > span {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             transform: skewX(var(--skew-angle));
+            line-height: 1;
+            gap: 6px;
+            justify-content: center;
         }
         
         .footer-btn:hover {
@@ -618,6 +623,7 @@
         .footer-btn i {
             margin-right: 6px;
             font-size: 0.85rem;
+            line-height: 1;
         }
         
         /* Wisdom Container Styles */
