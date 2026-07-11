@@ -29,6 +29,8 @@
             --konjenistvo: #8B4513;
             --kmetijstvo: #006400;
             --mesarska: #8B0000;
+
+            --hover-brightness: 1.1618;
         }
         
         * {
@@ -350,6 +352,7 @@
         
         .lang-dropdown-btn:hover {
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            filter: brightness(var(--hover-brightness));
         }
         
         .lang-dropdown-btn::after {
@@ -385,6 +388,21 @@
         
         .dropdown-item:hover {
             background: #f0f2f5; 
+            filter: brightness(var(--hover-brightness));
+            color: #000;
+            font-weight: 700;
+        }
+
+        .lang-dropdown-btn,
+        .dropdown-item,
+        .nav-dropdown-item,
+        .footer-btn,
+        .back-button {
+            transition:
+                filter 0.2s ease,
+                background-color 0.2s ease,
+                font-weight 0.2s ease,
+                box-shadow 0.2s ease;
         }
         
         .lang-flag {
