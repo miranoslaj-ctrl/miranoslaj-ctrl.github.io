@@ -49,21 +49,18 @@
         
         /* HEADER STYLES */
         .header-container {
-            position: fixed;
-            top: 0;
-            left: 0;
+            position: static;
             width: 100%;
             background: rgba(255, 255, 255, 0.4);
-            z-index: 100;
             display: flex;
             justify-content: space-between;
             padding-top: 10px;
             padding-left: 10px;
             padding-right: 10px;
             padding-bottom: 10px;
-            /*backdrop-filter: blur(5px);*/
             transition: transform 0.35s ease;
             will-change: transform;
+            min-height: 100px;
         }
 
         .header-container.hidden {
@@ -72,12 +69,30 @@
         
         /* Header line wrapper */
         .header-line-wrapper {
-            position: absolute;
-            bottom: 0px;
-            left: 0;
+            position: static;
             width: 100%;
             height: 16px;
-            z-index: 20;
+         
+        }
+
+        .header-stack {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 3000;
+            transition: transform 0.35s ease;
+            will-change: transform;
+        }
+
+        .header-stack.hidden {
+            transform: translateY(-100%);
+        }
+
+        .header-line-wrapper svg {
+            display: block;
+            width: 100%;
+            height: 16px;
         }
 
         /* Logo Styles */
@@ -381,7 +396,9 @@
         .content-container {
             font-family: 'Montserrat', sans-serif;
             width: 88vw;;
-            margin: 105px auto 120px;
+            margin-top: 121px;
+            margin-bottom: 120px;
+            margin-inline: auto;
             position: relative;
             z-index: 10;
             padding: 5px;
@@ -1756,205 +1773,209 @@
 </head>
 <body>
     <!-- Header Section -->
-    <div class="header-container" id="header">
-        <!-- Logo -->
-        <div class="logo-container">
-            <img src="HClogo.png" alt="Horizont Clair Logo" class="logo-img">
-        </div>
-        
-        <!-- Top-right section -->
-        <div class="top-right-section">
-            <!-- First row: Search and Language selector -->
-            <div class="top-row">
-                <div class="search-container">
-                    <input type="text" class="search-input" placeholder="Išči po katalogih..." id="searchInput"  data-translate-placeholder="search_placeholder">
-                    <button class="search-btn" id="globalSearchBtn">
-                        <i class="bi bi-search"></i>
-                    </button>
-                </div>
-                
-                <div class="lang-dropdown-container">
-                    <!-- Bootstrap Dropdown -->
-                    <div class="dropdown">
-                        <button class="btn lang-dropdown-btn dropdown-toggle" id="langDropdownBtn" 
-                                data-bs-toggle="dropdown" aria-expanded="false">
-                            <span>
-                                <span class="lang-flag">🇸🇮</span>
-                                <span class="lang-text" id="currentLang">SLO</span>
-                            </span>
+    <div class="header-stack" id="header"> 
+
+        <header class="header-container">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="HClogo.png" alt="Horizont Clair Logo" class="logo-img">
+            </div>
+            
+            <!-- Top-right section -->
+            <div class="top-right-section">
+                <!-- First row: Search and Language selector -->
+                <div class="top-row">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Išči po katalogih..." id="searchInput"  data-translate-placeholder="search_placeholder">
+                        <button class="search-btn" id="globalSearchBtn">
+                            <i class="bi bi-search"></i>
                         </button>
-                        <ul class="dropdown-menu" aria-labelledby="langDropdownBtn">
-                            <li><a class="dropdown-item" href="#" data-lang="slo">
-                                <span class="lang-flag">🇸🇮</span>
-                                <span class="lang-text">Slovenian (SLO)</span>
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" data-lang="eng">
-                                <span class="lang-flag">🇬🇧</span>
-                                <span class="lang-text">English (ENG)</span>
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" data-lang="ger">
-                                <span class="lang-flag">🇩🇪</span>
-                                <span class="lang-text">German (GER)</span>
-                            </a></li>
-                            <li><a class="dropdown-item" href="#" data-lang="cro">
-                                <span class="lang-flag">🇷🇸🇭🇷</span>
-                                <span class="lang-text">Serbo-Croatian (SCR)</span>
-                            </a></li>
-                        </ul>
                     </div>
-                </div>
-            </div>
-            
-          
-            
-            
-            <!-- Second row: Navigation buttons with updated items -->
-            <div class="bottom-row">
-                <!-- Konjenistvo dropdown -->
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn konjenistvo-dropdown-btn" id="konjenistvoBtn">
-                        <span><span class="emoji">🐴</span> <span data-translate="equestrian">Konjeništvo</span></span>
-                    </button>
-                    <div class="nav-dropdown-menu konjenistvo-dropdown-menu" id="konjenistvoMenu">
-                        <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
-                           data-pdf="konjeniska_oprema.pdf" 
-                           data-title-key="konjenistvo_all_equipment" 
-                           data-translate="konjenistvo_all_equipment">Vsa Konjeniška Oprema</a>
-                        <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
-                           data-pdf="konjeniska_oprema.pdf#page=4" 
-                           data-title-key="konjenistvo_povodci" 
-                           data-translate="konjenistvo_povodci">Vsa Konjeniška Oprema 4 stran</a>
-                        <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
-                           data-pdf="konjeniska_oprema.pdf#page=10" 
-                           data-title-key="konjenistvo_krmilniki" 
-                           data-translate="konjenistvo_krmilniki">Vsa Konjeniška Oprema 10 stran</a>
+                    
+                    <div class="lang-dropdown-container">
+                        <!-- Bootstrap Dropdown -->
+                        <div class="dropdown">
+                            <button class="btn lang-dropdown-btn dropdown-toggle" id="langDropdownBtn" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>
+                                    <span class="lang-flag">🇸🇮</span>
+                                    <span class="lang-text" id="currentLang">SLO</span>
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="langDropdownBtn">
+                                <li><a class="dropdown-item" href="#" data-lang="slo">
+                                    <span class="lang-flag">🇸🇮</span>
+                                    <span class="lang-text">Slovenian (SLO)</span>
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" data-lang="eng">
+                                    <span class="lang-flag">🇬🇧</span>
+                                    <span class="lang-text">English (ENG)</span>
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" data-lang="ger">
+                                    <span class="lang-flag">🇩🇪</span>
+                                    <span class="lang-text">German (GER)</span>
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" data-lang="cro">
+                                    <span class="lang-flag">🇷🇸🇭🇷</span>
+                                    <span class="lang-text">Serbo-Croatian (SCR)</span>
+                                </a></li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
                 
-                <!-- Kmetijstvo dropdown -->
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn kmetijstvo-dropdown-btn" id="kmetijstvoBtn">
-                        <span><span class="emoji">🐄</span> <span data-translate="agriculture">Kmetijstvo/Vrt</span></span>
-                    </button>
-                    <div class="nav-dropdown-menu kmetijstvo-dropdown-menu" id="kmetijstvoMenu">
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="pastirji.pdf" 
-                           data-title-key="kmetijstvo_electric_shepherds" 
-                           data-translate="kmetijstvo_electric_shepherds">Električni Pastirji</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="izolatorji.pdf" 
-                           data-title-key="kmetijstvo_insulators" 
-                           data-translate="kmetijstvo_insulators">Izolatorji</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="zice_trakovi.pdf" 
-                           data-title-key="kmetijstvo_wires_tapes" 
-                           data-translate="kmetijstvo_wires_tapes">Žice, Trakovi, Mreže in Palice</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="ostala_pasna.pdf" 
-                           data-title-key="kmetijstvo_other_pasture" 
-                           data-translate="kmetijstvo_other_pasture">Ostala Pašna Oprema</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="naveze_zeleznina.pdf" 
-                           data-title-key="kmetijstvo_fasteners_hardware" 
-                           data-translate="kmetijstvo_fasteners_hardware">Naveze in Železnina</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="napajalniki_in_krmilniki.pdf" 
-                           data-title-key="kmetijstvo_feeders_controllers" 
-                           data-translate="kmetijstvo_feeders_controllers">Napajalniki in Krmilniki</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="molzni_stroji.pdf" 
-                           data-title-key="kmetijstvo_milking_machines" 
-                           data-translate="kmetijstvo_milking_machines">Molzni Stroji</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="sesne_gume.pdf" 
-                           data-title-key="kmetijstvo_milking_rubber" 
-                           data-translate="kmetijstvo_milking_rubber">Sesne Gume za Molz. stroje</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="ostala_molzna.pdf" 
-                           data-title-key="kmetijstvo_other_milking" 
-                           data-translate="kmetijstvo_other_milking">Ostala Molzna Oprema</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="vrtna_oprema.pdf" 
-                           data-title-key="kmetijstvo_garden_equipment" 
-                           data-translate="kmetijstvo_garden_equipment">Vrtna Oprema</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="hlevska_elektricna_oprema.pdf" 
-                           data-title-key="kmetijstvo_electric_barn" 
-                           data-translate="kmetijstvo_electric_barn">Električna Hlevska Oprema</a>
-                        <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
-                           data-pdf="ostala_kmetijska.pdf" 
-                           data-title-key="kmetijstvo_other_agricultural" 
-                           data-translate="kmetijstvo_other_agricultural">Ostala Kmetijska Oprema</a>
-                    </div>
-                </div>
+            
                 
-                <!-- Mesarska oprema dropdown -->
-                <div class="nav-dropdown">
-                    <button class="nav-dropdown-btn mesarska-dropdown-btn" id="mesarskaBtn">
-                        <span><span class="emoji">🔪</span> <span data-translate="butchery">Mesarija/Kuhinja</span></span>
-                    </button>
-                    <div class="nav-dropdown-menu mesarska-dropdown-menu" id="mesarskaMenu">
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="swibo_nozi.pdf" 
-                           data-title-key="mesarska_swibo_knives" 
-                           data-translate="mesarska_swibo_knives">Noži Swibo in Ostali</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="elek_roc_mesoreznice.pdf" 
-                           data-title-key="mesarska_meat_grinders" 
-                           data-translate="mesarska_meat_grinders">Elektr. in Ročne Mesoreznice</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="plo_nozi_ostalo_mesoreznice.pdf" 
-                           data-title-key="mesarska_plates_knives" 
-                           data-translate="mesarska_plates_knives">Ploščice in Noži za mesoreznice</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="rDel_mesor_reber.pdf" 
-                           data-title-key="mesarska_spare_parts" 
-                           data-translate="mesarska_spare_parts">Rezervni deli ter Ostali pribor za mesoreznice</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="stroj_vre_za_vakumsko_pakiranje.pdf" 
-                           data-title-key="mesarska_vacuum_packaging" 
-                           data-translate="mesarska_vacuum_packaging">Strojčki in Vrečke za Vakuumsko pakiranje</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="polnilke_lez_stoj.pdf" 
-                           data-title-key="mesarska_stuffers" 
-                           data-translate="mesarska_stuffers">Ležeče in Pokončne Polnilke</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="ovitki_mrezice_vrvice.pdf" 
-                           data-title-key="mesarska_casings_netting" 
-                           data-translate="mesarska_casings_netting">Ovitki, Mrežice, in Vrvice ter Čreva</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="zage_elektricne_rocne_za_kosti_kavlji.pdf" 
-                           data-title-key="mesarska_bone_saws" 
-                           data-translate="mesarska_bone_saws">Elektr. in Ročne Žage za kosti ter Kavlji</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="mesarice.pdf" 
-                           data-title-key="mesarska_slicers" 
-                           data-translate="mesarska_slicers">Salamoreznice in Mesarice</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="pripomocki_za_predelavo.pdf" 
-                           data-title-key="mesarska_food_processing" 
-                           data-translate="mesarska_food_processing">Pripomočki za Predelavo Živil</a>
-                        <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
-                           data-pdf="tehtnice_ostala_mesarska.pdf" 
-                           data-title-key="mesarska_scales_other" 
-                           data-translate="mesarska_scales_other">Tehtnice ter Ostala Mesarska Oprema</a>
+                
+                <!-- Second row: Navigation buttons with updated items -->
+                <div class="bottom-row">
+                    <!-- Konjenistvo dropdown -->
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-btn konjenistvo-dropdown-btn" id="konjenistvoBtn">
+                            <span><span class="emoji">🐴</span> <span data-translate="equestrian">Konjeništvo</span></span>
+                        </button>
+                        <div class="nav-dropdown-menu konjenistvo-dropdown-menu" id="konjenistvoMenu">
+                            <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
+                            data-pdf="konjeniska_oprema.pdf" 
+                            data-title-key="konjenistvo_all_equipment" 
+                            data-translate="konjenistvo_all_equipment">Vsa Konjeniška Oprema</a>
+                            <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
+                            data-pdf="konjeniska_oprema.pdf#page=4" 
+                            data-title-key="konjenistvo_povodci" 
+                            data-translate="konjenistvo_povodci">Vsa Konjeniška Oprema 4 stran</a>
+                            <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
+                            data-pdf="konjeniska_oprema.pdf#page=10" 
+                            data-title-key="konjenistvo_krmilniki" 
+                            data-translate="konjenistvo_krmilniki">Vsa Konjeniška Oprema 10 stran</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Kmetijstvo dropdown -->
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-btn kmetijstvo-dropdown-btn" id="kmetijstvoBtn">
+                            <span><span class="emoji">🐄</span> <span data-translate="agriculture">Kmetijstvo/Vrt</span></span>
+                        </button>
+                        <div class="nav-dropdown-menu kmetijstvo-dropdown-menu" id="kmetijstvoMenu">
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="pastirji.pdf" 
+                            data-title-key="kmetijstvo_electric_shepherds" 
+                            data-translate="kmetijstvo_electric_shepherds">Električni Pastirji</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="izolatorji.pdf" 
+                            data-title-key="kmetijstvo_insulators" 
+                            data-translate="kmetijstvo_insulators">Izolatorji</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="zice_trakovi.pdf" 
+                            data-title-key="kmetijstvo_wires_tapes" 
+                            data-translate="kmetijstvo_wires_tapes">Žice, Trakovi, Mreže in Palice</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="ostala_pasna.pdf" 
+                            data-title-key="kmetijstvo_other_pasture" 
+                            data-translate="kmetijstvo_other_pasture">Ostala Pašna Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="naveze_zeleznina.pdf" 
+                            data-title-key="kmetijstvo_fasteners_hardware" 
+                            data-translate="kmetijstvo_fasteners_hardware">Naveze in Železnina</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="napajalniki_in_krmilniki.pdf" 
+                            data-title-key="kmetijstvo_feeders_controllers" 
+                            data-translate="kmetijstvo_feeders_controllers">Napajalniki in Krmilniki</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="molzni_stroji.pdf" 
+                            data-title-key="kmetijstvo_milking_machines" 
+                            data-translate="kmetijstvo_milking_machines">Molzni Stroji</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="sesne_gume.pdf" 
+                            data-title-key="kmetijstvo_milking_rubber" 
+                            data-translate="kmetijstvo_milking_rubber">Sesne Gume za Molz. stroje</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="ostala_molzna.pdf" 
+                            data-title-key="kmetijstvo_other_milking" 
+                            data-translate="kmetijstvo_other_milking">Ostala Molzna Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="vrtna_oprema.pdf" 
+                            data-title-key="kmetijstvo_garden_equipment" 
+                            data-translate="kmetijstvo_garden_equipment">Vrtna Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="hlevska_elektricna_oprema.pdf" 
+                            data-title-key="kmetijstvo_electric_barn" 
+                            data-translate="kmetijstvo_electric_barn">Električna Hlevska Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="ostala_kmetijska.pdf" 
+                            data-title-key="kmetijstvo_other_agricultural" 
+                            data-translate="kmetijstvo_other_agricultural">Ostala Kmetijska Oprema</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Mesarska oprema dropdown -->
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-btn mesarska-dropdown-btn" id="mesarskaBtn">
+                            <span><span class="emoji">🔪</span> <span data-translate="butchery">Mesarija/Kuhinja</span></span>
+                        </button>
+                        <div class="nav-dropdown-menu mesarska-dropdown-menu" id="mesarskaMenu">
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="swibo_nozi.pdf" 
+                            data-title-key="mesarska_swibo_knives" 
+                            data-translate="mesarska_swibo_knives">Noži Swibo in Ostali</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="elek_roc_mesoreznice.pdf" 
+                            data-title-key="mesarska_meat_grinders" 
+                            data-translate="mesarska_meat_grinders">Elektr. in Ročne Mesoreznice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="plo_nozi_ostalo_mesoreznice.pdf" 
+                            data-title-key="mesarska_plates_knives" 
+                            data-translate="mesarska_plates_knives">Ploščice in Noži za mesoreznice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="rDel_mesor_reber.pdf" 
+                            data-title-key="mesarska_spare_parts" 
+                            data-translate="mesarska_spare_parts">Rezervni deli ter Ostali pribor za mesoreznice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="stroj_vre_za_vakumsko_pakiranje.pdf" 
+                            data-title-key="mesarska_vacuum_packaging" 
+                            data-translate="mesarska_vacuum_packaging">Strojčki in Vrečke za Vakuumsko pakiranje</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="polnilke_lez_stoj.pdf" 
+                            data-title-key="mesarska_stuffers" 
+                            data-translate="mesarska_stuffers">Ležeče in Pokončne Polnilke</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="ovitki_mrezice_vrvice.pdf" 
+                            data-title-key="mesarska_casings_netting" 
+                            data-translate="mesarska_casings_netting">Ovitki, Mrežice, in Vrvice ter Čreva</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="zage_elektricne_rocne_za_kosti_kavlji.pdf" 
+                            data-title-key="mesarska_bone_saws" 
+                            data-translate="mesarska_bone_saws">Elektr. in Ročne Žage za kosti ter Kavlji</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="mesarice.pdf" 
+                            data-title-key="mesarska_slicers" 
+                            data-translate="mesarska_slicers">Salamoreznice in Mesarice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="pripomocki_za_predelavo.pdf" 
+                            data-title-key="mesarska_food_processing" 
+                            data-translate="mesarska_food_processing">Pripomočki za Predelavo Živil</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="tehtnice_ostala_mesarska.pdf" 
+                            data-title-key="mesarska_scales_other" 
+                            data-translate="mesarska_scales_other">Tehtnice ter Ostala Mesarska Oprema</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </header>
+            
+            <!-- Header Line Wrapper -->
+            <div class="header-line-wrapper">
+                <svg width="100%" height="16px">
+                    <defs>
+                        <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#000000" />
+                            <stop offset="100%" stop-color="#D0001A" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="100%" height="16px" fill="url(#headerGradient)" />
+                </svg>
+            </div>
         
-        <!-- Header Line Wrapper -->
-        <div class="header-line-wrapper">
-            <svg width="100%" height="16px">
-                <defs>
-                    <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" stop-color="#000000" />
-                        <stop offset="100%" stop-color="#D0001A" />
-                    </linearGradient>
-                </defs>
-                <rect width="100%" height="16px" fill="url(#headerGradient)" />
-            </svg>
-        </div>
     </div>
 
     <!-- Main Content -->
