@@ -17,21 +17,17 @@
         :root {
             --primary: #000000;
             --secondary: #D0001A;
-            --accent: #FF5252;
-            --light: #f8f9fa;
-            --dark: #212529;
-            --border-dark: #444;
+            
+            --border-dark: #666;
             --skew-angle: 12deg;
             
-            /* Section colors */
             --konjenistvo: #8B4513;
             --kmetijstvo: #006400;
             --mesarska: #8B0000;
+            --lang-bg: rgba(255, 255, 255, 0.9);
+            /*--lang-bg-hover: rgba(255, 255, 255, 0.618);*/
+            --lang-bg-hover: #f8f9fa;
 
-            --hover-brightness: 1.1618;
-
-            --neutral-control-bg: rgba(205, 205, 205, 0.90);
-            --neutral-control-hover-bg: rgba(235, 235, 235, 0.97);
         }
         
         * {
@@ -337,7 +333,7 @@
             transform: skewX(calc(-1 * var(--skew-angle)));
             border-radius: 10px !important;
             border: 2px solid var(--border-dark);
-            background: rgba(205, 205, 205, 0.9);
+            background-color: var(--lang-bg);
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             font-weight: 500;
             color: #000;
@@ -350,9 +346,10 @@
             justify-content: center;
             min-height: 35px;
 
-            --bs-btn-bg: var(--neutral-control-bg);
-            --bs-btn-hover-bg: var(--neutral-control-hover-bg);
-            --bs-btn-active-bg: var(--neutral-control-hover-bg);
+            --bs-btn-bg: var(--lang-bg);
+            --bs-btn-hover-bg: var(--lang-bg-hover);
+            --bs-btn-active-bg: var(--lang-bg-hover);
+
             --bs-btn-border-color: var(--border-dark);
             --bs-btn-hover-border-color: var(--border-dark);
             --bs-btn-active-border-color: var(--border-dark);
@@ -956,13 +953,6 @@
             border: 2px solid var(--secondary);
         }
         
-        .b2b-feature h3 {
-            color: var(--dark);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
         
         .b2b-feature i {
             color: var(--secondary);
