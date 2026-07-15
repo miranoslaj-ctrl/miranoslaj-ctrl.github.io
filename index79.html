@@ -25,7 +25,7 @@
             --kmetijstvo: #006400;
             --mesarska: #8B0000;
             --lang-bg:#f8f9fa;
-            --lang-bg-hover: rgba(255, 255, 255, 0.62);
+            --lang-bg-hover: rgba(158, 158, 158, 1);
             
 
         }
@@ -333,10 +333,10 @@
             transform: skewX(calc(-1 * var(--skew-angle)));
             border-radius: 10px !important;
             border: 2px solid var(--border-dark);
-            background-color: var(--lang-bg);
+            background-color: var(--lang-bg) !important;
             box-shadow: 0 2px 8px rgba(0,0,0,0.08);
             font-weight: 500;
-            color: #000;
+            color: #000 !important;
             padding: 0 15px;
             height: 100%;
             transition: all 0.3s;
@@ -345,18 +345,6 @@
             align-items: center;
             justify-content: center;
             min-height: 35px;
-
-            --bs-btn-bg: var(--lang-bg);
-            --bs-btn-hover-bg: var(--lang-bg-hover);
-            --bs-btn-active-bg: var(--lang-bg-hover);
-
-            --bs-btn-border-color: var(--border-dark);
-            --bs-btn-hover-border-color: var(--border-dark);
-            --bs-btn-active-border-color: var(--border-dark);
-            
-            --bs-btn-color: #000;
-            --bs-btn-hover-color: #000;
-            --bs-btn-active-color: #000;
         }
 
         .lang-dropdown-btn:hover,
@@ -364,8 +352,8 @@
         .lang-dropdown-btn:focus-visible,
         .lang-dropdown-btn:active,
         .lang-dropdown-btn.show {
-            background-color: var(--lang-bg-hover);
-            color: #000;
+            background-color: var(--lang-bg-hover) !important;
+            color: #000 !important;
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
