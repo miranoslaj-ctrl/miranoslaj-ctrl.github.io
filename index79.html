@@ -33,7 +33,7 @@
             --lang-bg:#f8f9fa;
             --lang-bg-hover: rgba(158, 158, 158, 1);
 
-            --dropdown-item-hover: #d4d6d8;
+            --dropdown-item-hover: rgb(224, 224, 224, 1);
             
 
         }
@@ -237,6 +237,14 @@
             background: var(--mesarska-hover);
             border-color: #000;
         }
+
+        .nav-dropdown:has(.nav-dropdown-menu.show) .nav-dropdown-btn {
+            transform:
+                skewX(calc(-1 * var(--skew-angle)))
+                translateY(-3px);
+
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
         
         .nav-dropdown-menu {
             position: absolute;
@@ -424,7 +432,7 @@
             
         }
         
-        .dropdown-item:hover
+        .dropdown-item:hover,
         .dropdown-item:focus { 
             background: var(--dropdown-item-hover);
             color: #000;
