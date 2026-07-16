@@ -18,14 +18,22 @@
             --primary: #000000;
             --secondary: #D0001A;
             
-            --border-dark: #777;
             --skew-angle: 12deg;
+
+            --border-dark: #777;
             
             --konjenistvo: #8B4513;
             --kmetijstvo: #006400;
             --mesarska: #8B0000;
+
+            --konjenistvo-hover: #6b3610;
+            --kmetijstvo-hover: #005200;
+            --mesarska-hover: #700000;
+
             --lang-bg:#f8f9fa;
             --lang-bg-hover: rgba(158, 158, 158, 1);
+
+            --dropdown-item-hover: #d4d6d8;
             
 
         }
@@ -158,36 +166,26 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.1);
             border-radius: 10px;
             transform: skewX(calc(-1 * var(--skew-angle)));
-            border-left: 2px solid rgba(255,255,255,0.3);
-            border-right: 2px solid rgba(0,0,0,0.2);
+            /*border-left: 2px solid rgba(255,255,255,0.3);
+            border-right: 2px solid rgba(0,0,0,0.2);*/
+            border: 2px solid;
         }
         
-        /* Konjenistvo dropdown color */
-        .konjenistvo-dropdown-btn {
+       .konjenistvo-dropdown-btn {
             background: var(--konjenistvo);
+            border-color: var(--konjenistvo-hover);
         }
-        
-        .konjenistvo-dropdown-btn:hover {
-            background: #6b3610;
-        }
-        
-        /* Kmetijstvo dropdown color */
-        .kmetijstvo-dropdown-btn {
+
+       .kmetijstvo-dropdown-btn {
             background: var(--kmetijstvo);
+            border-color: var(--kmetijstvo-hover);
         }
-        
-        .kmetijstvo-dropdown-btn:hover {
-            background: #005200;
-        }
-        
-        /* Mesarska dropdown color */
+
         .mesarska-dropdown-btn {
             background: var(--mesarska);
+            border-color: var(--mesarska-hover);
         }
-        
-        .mesarska-dropdown-btn:hover {
-            background: #700000;
-        }
+
         
         .nav-dropdown-btn > span {
             display: flex;
@@ -202,9 +200,42 @@
             font-size: 1.1rem;
         }
 
+        .konjenistvo-dropdown-btn:hover {
+            background: var(--konjenistvo-hover);
+            border-color: var(--konjenistvo-hover);
+        }
+
+        .kmetijstvo-dropdown-btn:hover {
+            background: var(--kmetijstvo-hover);
+            border-color: var(--kmetijstvo-hover);
+        }
+
+        .mesarska-dropdown-btn:hover {
+            background: var(--mesarska-hover);
+            border-color: var(--mesarska-hover);
+        }
+
         .nav-dropdown-btn:hover {
             transform: skewX(calc(-1 * var(--skew-angle))) translateY(-3px);
             box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .nav-dropdown:has(.konjenistvo-dropdown-menu.show)
+        .konjenistvo-dropdown-btn {
+            background: var(--konjenistvo-hover);
+            border-color: #000;
+        }
+
+        .nav-dropdown:has(.kmetijstvo-dropdown-menu.show)
+        .kmetijstvo-dropdown-btn {
+            background: var(--kmetijstvo-hover);
+            border-color: #000;
+        }
+
+        .nav-dropdown:has(.mesarska-dropdown-menu.show)
+        .mesarska-dropdown-btn {
+            background: var(--mesarska-hover);
+            border-color: #000;
         }
         
         .nav-dropdown-menu {
@@ -255,12 +286,14 @@
             background: #e0e0e0;
             color: var(--konjenistvo);
             font-weight: 700;
+            
         }
         
         .kmetijstvo-dropdown-item:hover {
             background: #e0e0e0;
             color: var(--kmetijstvo);
             font-weight: 700;
+            
         }
         
         .mesarska-dropdown-item:hover {
@@ -354,6 +387,9 @@
         .lang-dropdown-btn.show {
             background-color: var(--lang-bg-hover) !important;
             color: #000 !important;
+            transform:
+                skewX(calc(-1 * var(--skew-angle)))
+                translateY(-3px);
             box-shadow: 0 3px 10px rgba(0,0,0,0.1);
         }
         
@@ -388,8 +424,9 @@
             
         }
         
-        .dropdown-item:hover {
-            background: #f0f2f5; 
+        .dropdown-item:hover
+        .dropdown-item:focus { 
+            background: var(--dropdown-item-hover);
             color: #000;
             font-weight: 700;
         }
