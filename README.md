@@ -1,2 +1,2 @@
 # miranoslaj-ctrl.github.io
-Host for a web page
+Host for a mobile app development
