@@ -1,0 +1,51 @@
+/* v0.3.1: stacked PDF pages, isolated viewer scrolling. */
+@media (max-width: 768px) {
+  html { -webkit-text-size-adjust: 100%; }
+  body { background-attachment: scroll; }
+  button, .nav-dropdown-item, .footer-btn { touch-action: manipulation; }
+  .search-input { font-size: 16px; }
+  .logo-img { max-width: min(44vw, 180px); height: auto; }
+  .pdf-container { height: 56dvh !important; min-height: 280px !important; overflow: hidden; }
+}
+/* Keep the existing viewer as a separate, fixed-height scrolling window. */
+#contentDisplay.pdf-container { height: min(70dvh, 740px); min-height: 280px; }
+#pdfViewerContainer.canvas-container {
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: flex-start; overflow-x: auto; overflow-y: auto;
+  overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+  height: 100%; width: 100%; gap: 0; padding: 12px;
+  scroll-padding-top: 12px;
+}
+#pdfViewerContainer .page-container {
+  position: relative; display: flex; flex-direction: column; align-items: center;
+  flex: 0 0 auto; margin: 0 auto 16px; padding-bottom: 10px;
+  max-width: none; min-height: 24px;
+  border-bottom: 2px solid #b7b7b7; box-shadow: none; border-radius: 0;
+}
+#pdfViewerContainer .page-container canvas { max-width: none; height: auto; display: block; }
+#pdfViewerContainer .page-label {
+  position: relative; bottom: auto; left: auto; transform: none;
+  display: block; width: auto; min-width: 80px; margin: 8px auto 0;
+  text-align: center; background: rgba(10,9,9,.68);
+}
+#contentDisplay .pdf-controls {
+  position: absolute; top: 10px; right: 10px; left: auto;
+  display: flex; flex-direction: column; gap: 5px; width: auto;
+  margin: 0; padding: 5px; z-index: 100;
+}
+#contentDisplay .pdf-controls #zoomIn,
+#contentDisplay .pdf-controls #zoomOut,
+#contentDisplay .pdf-controls #zoomLevel { display: none !important; }
+#contentDisplay .pdf-controls .control-btn { min-width: 36px; min-height: 36px; }
+
+/* v0.3.2: hide the redundant on-screen back control; browser/Android Back still works. */
+#backButtonContainer { display: none !important; }
+/* Allow touch pointer events for our custom pinch and pan implementation. */
+#pdfViewerContainer { touch-action: none; }
+#pdfViewerContainer .page-container { transform-origin: top center; }
+/* News cards: keep photos proportionate on narrow screens. */
+@media (max-width: 768px) {
+  #initialContent .card img, #initialContent .card-img-top {
+    width: 100%; height: auto; object-fit: contain;
+  }
+}
