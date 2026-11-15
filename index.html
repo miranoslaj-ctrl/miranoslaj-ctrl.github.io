@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="sl">
+<head>
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Horizont Clair d.o.o.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    <!-- PDF.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/mobile.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <div class="header-stack" id="header"> 
+
+        <header class="header-container">
+            <!-- Logo -->
+            <div class="logo-container">
+                <img src="HClogo.png" alt="Horizont Clair Logo" class="logo-img">
+            </div>
+            
+            <!-- Top-right section -->
+            <div class="top-right-section">
+                <!-- First row: Search and Language selector -->
+                <div class="top-row">
+                    <div class="search-container">
+                        <input type="text" class="search-input" placeholder="Išči po katalogih..." id="searchInput"  data-translate-placeholder="search_placeholder">
+                        <button class="search-btn" id="globalSearchBtn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="lang-dropdown-container">
+                        <!-- Bootstrap Dropdown -->
+                        <div class="dropdown">
+                            <button class="btn lang-dropdown-btn dropdown-toggle" id="langDropdownBtn" 
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                <span>
+                                    <span class="lang-flag">🇸🇮</span>
+                                    <span class="lang-text" id="currentLang">SLO</span>
+                                </span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="langDropdownBtn">
+                                <li><a class="dropdown-item" href="#" data-lang="slo">
+                                    <span class="lang-flag">🇸🇮</span>
+                                    <span class="lang-text">Slovenian (SLO)</span>
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" data-lang="eng">
+                                    <span class="lang-flag">🇬🇧</span>
+                                    <span class="lang-text">English (ENG)</span>
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" data-lang="ger">
+                                    <span class="lang-flag">🇩🇪</span>
+                                    <span class="lang-text">German (GER)</span>
+                                </a></li>
+                                <li><a class="dropdown-item" href="#" data-lang="cro">
+                                    <span class="lang-flag">🇷🇸🇭🇷</span>
+                                    <span class="lang-text">Serbo-Croatian (SCR)</span>
+                                </a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+            
+                
+                
+                <!-- Second row: Navigation buttons with updated items -->
+                <div class="bottom-row">
+                    <!-- Konjenistvo dropdown -->
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-btn konjenistvo-dropdown-btn" id="konjenistvoBtn">
+                            <span><span class="emoji">🐴</span> <span data-translate="equestrian">Konjeništvo</span></span>
+                        </button>
+                        <div class="nav-dropdown-menu konjenistvo-dropdown-menu" id="konjenistvoMenu">
+                            <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
+                            data-pdf="konjeniska_oprema.pdf" 
+                            data-title-key="konjenistvo_all_equipment" 
+                            data-translate="konjenistvo_all_equipment">Vsa Konjeniška Oprema</a>
+                            <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
+                            data-pdf="konjeniska_oprema.pdf#page=4" 
+                            data-title-key="konjenistvo_povodci" 
+                            data-translate="konjenistvo_povodci">Vsa Konjeniška Oprema 4 stran</a>
+                            <a class="nav-dropdown-item konjenistvo-dropdown-item" href="#" 
+                            data-pdf="konjeniska_oprema.pdf#page=10" 
+                            data-title-key="konjenistvo_krmilniki" 
+                            data-translate="konjenistvo_krmilniki">Vsa Konjeniška Oprema 10 stran</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Kmetijstvo dropdown -->
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-btn kmetijstvo-dropdown-btn" id="kmetijstvoBtn">
+                            <span><span class="emoji">🐄</span> <span data-translate="agriculture">Kmetijstvo/Vrt</span></span>
+                        </button>
+                        <div class="nav-dropdown-menu kmetijstvo-dropdown-menu" id="kmetijstvoMenu">
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="pastirji.pdf" 
+                            data-title-key="kmetijstvo_electric_shepherds" 
+                            data-translate="kmetijstvo_electric_shepherds">Električni Pastirji</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="izolatorji.pdf" 
+                            data-title-key="kmetijstvo_insulators" 
+                            data-translate="kmetijstvo_insulators">Izolatorji</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="zice_trakovi.pdf" 
+                            data-title-key="kmetijstvo_wires_tapes" 
+                            data-translate="kmetijstvo_wires_tapes">Žice, Trakovi, Mreže in Palice</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="ostala_pasna.pdf" 
+                            data-title-key="kmetijstvo_other_pasture" 
+                            data-translate="kmetijstvo_other_pasture">Ostala Pašna Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="naveze_zeleznina.pdf" 
+                            data-title-key="kmetijstvo_fasteners_hardware" 
+                            data-translate="kmetijstvo_fasteners_hardware">Naveze in Železnina</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="napajalniki_in_krmilniki.pdf" 
+                            data-title-key="kmetijstvo_feeders_controllers" 
+                            data-translate="kmetijstvo_feeders_controllers">Napajalniki in Krmilniki</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="molzni_stroji.pdf" 
+                            data-title-key="kmetijstvo_milking_machines" 
+                            data-translate="kmetijstvo_milking_machines">Molzni Stroji</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="sesne_gume.pdf" 
+                            data-title-key="kmetijstvo_milking_rubber" 
+                            data-translate="kmetijstvo_milking_rubber">Sesne Gume za Molz. stroje</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="ostala_molzna.pdf" 
+                            data-title-key="kmetijstvo_other_milking" 
+                            data-translate="kmetijstvo_other_milking">Ostala Molzna Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="vrtna_oprema.pdf" 
+                            data-title-key="kmetijstvo_garden_equipment" 
+                            data-translate="kmetijstvo_garden_equipment">Vrtna Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="hlevska_elektricna_oprema.pdf" 
+                            data-title-key="kmetijstvo_electric_barn" 
+                            data-translate="kmetijstvo_electric_barn">Električna Hlevska Oprema</a>
+                            <a class="nav-dropdown-item kmetijstvo-dropdown-item" href="#" 
+                            data-pdf="ostala_kmetijska.pdf" 
+                            data-title-key="kmetijstvo_other_agricultural" 
+                            data-translate="kmetijstvo_other_agricultural">Ostala Kmetijska Oprema</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Mesarska oprema dropdown -->
+                    <div class="nav-dropdown">
+                        <button class="nav-dropdown-btn mesarska-dropdown-btn" id="mesarskaBtn">
+                            <span><span class="emoji">🔪</span> <span data-translate="butchery">Mesarija/Kuhinja</span></span>
+                        </button>
+                        <div class="nav-dropdown-menu mesarska-dropdown-menu" id="mesarskaMenu">
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="swibo_nozi.pdf" 
+                            data-title-key="mesarska_swibo_knives" 
+                            data-translate="mesarska_swibo_knives">Noži Swibo in Ostali</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="elek_roc_mesoreznice.pdf" 
+                            data-title-key="mesarska_meat_grinders" 
+                            data-translate="mesarska_meat_grinders">Elektr. in Ročne Mesoreznice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="plo_nozi_ostalo_mesoreznice.pdf" 
+                            data-title-key="mesarska_plates_knives" 
+                            data-translate="mesarska_plates_knives">Ploščice in Noži za mesoreznice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="rDel_mesor_reber.pdf" 
+                            data-title-key="mesarska_spare_parts" 
+                            data-translate="mesarska_spare_parts">Rezervni deli ter Ostali pribor za mesoreznice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="stroj_vre_za_vakumsko_pakiranje.pdf" 
+                            data-title-key="mesarska_vacuum_packaging" 
+                            data-translate="mesarska_vacuum_packaging">Strojčki in Vrečke za Vakuumsko pakiranje</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="polnilke_lez_stoj.pdf" 
+                            data-title-key="mesarska_stuffers" 
+                            data-translate="mesarska_stuffers">Ležeče in Pokončne Polnilke</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="ovitki_mrezice_vrvice.pdf" 
+                            data-title-key="mesarska_casings_netting" 
+                            data-translate="mesarska_casings_netting">Ovitki, Mrežice, in Vrvice ter Čreva</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="zage_elektricne_rocne_za_kosti_kavlji.pdf" 
+                            data-title-key="mesarska_bone_saws" 
+                            data-translate="mesarska_bone_saws">Elektr. in Ročne Žage za kosti ter Kavlji</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="mesarice.pdf" 
+                            data-title-key="mesarska_slicers" 
+                            data-translate="mesarska_slicers">Salamoreznice in Mesarice</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="pripomocki_za_predelavo.pdf" 
+                            data-title-key="mesarska_food_processing" 
+                            data-translate="mesarska_food_processing">Pripomočki za Predelavo Živil</a>
+                            <a class="nav-dropdown-item mesarska-dropdown-item" href="#" 
+                            data-pdf="tehtnice_ostala_mesarska.pdf" 
+                            data-title-key="mesarska_scales_other" 
+                            data-translate="mesarska_scales_other">Tehtnice ter Ostala Mesarska Oprema</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </header>
+            
+            <!-- Header Line Wrapper -->
+            <div class="header-line-wrapper">
+                <svg width="100%" height="16px">
+                    <defs>
+                        <linearGradient id="headerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#000000" />
+                            <stop offset="100%" stop-color="#D0001A" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="100%" height="16px" fill="url(#headerGradient)" />
+                </svg>
+            </div>
+        
+    </div>
+
+    <!-- Main Content -->
+    <div class="content-container" id="mainContent">
+
+         <div class="back-button-container" id="backButtonContainer" style="display: none;">
+            <button class="back-button" id="backButton">
+                <i class="bi bi-arrow-left"></i> <span data-translate="back">Nazaj</span>
+            </button>
+        </div>
+
+        <h2 class="section-title" id="pageTitle" data-translate="news">Novosti, Aktualno</h2>
+        
+        <!-- Initial content (cards) -->
+        <div id="initialContent">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-img">
+                            <img src="aktualno1.png" alt="">
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title" data-translate="aktualno1_title">Naslov pod sliko 1</h3>
+                            <p class="card-text" data-translate="aktualno1_text">Text pod naslovom</p>
+                            <button class="btn btn-primary pdf-viewer-link" 
+                                data-pdf="/ostala_kmetijska.pdf" 
+                                data-page="21" 
+                                data-title-key="kmetijstvo_other_agricultural"
+                                data-translate="read_more">
+                            Preberi več
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="card-img">
+                            <img src="aktualno2.png" alt="">    
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title" data-translate="aktualno2_title">Naslov pod sliko 2</h3>
+                            <p class="card-text" data-translate="aktualno2_text">Text pod naslovom</p>
+                             <button class="btn btn-primary pdf-viewer-link" 
+                                data-pdf="/napajalniki_in_krmilniki.pdf" 
+                                data-page="16" 
+                                data-title-key="kmetijstvo_feeders_controllers"
+                                data-translate="read_more">
+                            Preberi več
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-md-4">
+                    <div class="feature-card">
+                         <div class="card-img">
+                            <img src="aktualno3.png" alt="">    
+                        </div>
+                        <div class="card-body">
+                            <h3 class="card-title" data-translate="aktualno3_title">Naslov pod sliko 3</h3>
+                            <p class="card-text" data-translate="aktualno3_text">Text pod naslovom</p>
+                            <button class="btn btn-primary pdf-viewer-link"
+                                data-pdf="/pastirji.pdf" 
+                                data-page="4" 
+                                data-title-key="kmetijstvo_electric_shepherds"
+                                data-translate="read_more">Preberi več</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        
+ <div class="about-section content-section" id="aboutSection">
+      <h3 class="about-title" data-translate="company_name">Horizont-Clair d.o.o.</h3>
+    
+    <div class="about-content">
+        <h4 class="about-subtitle" data-translate="locations_contact">Lokacije in kontaktne informacije</h4>
+        
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3 data-translate="store_zbilje">Trgovina in sedež Zbilje</h3>
+                <div class="contact-info">
+                    Zbilje 4H, 1215 Medvode
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="tel">Tel:</strong> 01 3615 145<br>
+                    <strong data-translate="gsm">GSM:</strong> 041 689 980
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="email">E-pošta:</strong> <a href="mailto:info@signaldoo.si">info@signaldoo.si</a>
+                </div>
+                <div class="location-image">
+                    <img src="pics/trgovinaZbileZunaj.JPG" alt="Trgovina Zbilje zunanjost" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: trgovinaZbileZunaj.JPG]</div>
+                </div>
+            </div>
+            
+            <div class="contact-card">
+                <h3 data-translate="store_maribor">Trgovina Maribor</h3>
+                <div class="contact-info">
+                    Dupleška cesta 239, Dogoše
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="tel">Tel:</strong> 02 4618 162<br>
+                    <strong data-translate="gsm">GSM:</strong> 051 620 324
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="email">E-pošta:</strong> <a href="mailto:infomb@signaldoo.si">infomb@signaldoo.si</a>
+                </div>
+                <div class="location-image">
+                    <img src="pics/trgovinaMBzunaj.jpg" alt="Trgovina Maribor zunanjost" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: trgovinaMBzunaj.jpg]</div>
+                </div>
+            </div>
+            
+            <div class="contact-card">
+                <h3 data-translate="store_novi_sad">Trgovina Novi Sad, Srbija</h3>
+                <div class="contact-info">
+                    Alberta Ajnštajna 2, 21000 Novi Sad
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="tel">Tel:</strong> 381 21 65 199 65
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="email">E-pošta:</strong> <a href="mailto:clair@eunet.rs">clair@eunet.rs</a>
+                </div>
+                <div class="location-image">
+                    <img src="pics/novisad_location.jpg" alt="Trgovina Novi Sad" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: Novi Sad Location]</div>
+                </div>
+            </div>
+            
+            <div class="contact-card">
+                <h3 data-translate="warehouse">Skladišče</h3>
+                <div class="contact-info">
+                    Srednje Bitnje 20, 4209 Žabnica
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="tel">Tel:</strong> 04 2311410<br>
+                    <strong data-translate="gsm">GSM:</strong> 051 349 992, 051 636 976
+                </div>
+                <div class="contact-info">
+                    <strong data-translate="email">E-pošta:</strong> <a href="mailto:skl@horizont-clair.si">skl@horizont-clair.si</a>
+                </div>
+                <div class="location-image">
+                    <img src="pics/skladisce_location.jpg" alt="Skladišče" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: Skladišče Location]</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Team Members Section -->
+        <h4 class="about-subtitle" data-translate="our_team">Naša ekipa</h4>
+
+        <!-- Two-column grid for first 6 team members -->
+        <div class="team-grid-container">
+            <!-- Samo Perme -->
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="pics/PermeS2022.jpg" alt="Samo Perme" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: PermeS2022.jpg]</div>
+                </div>
+                <div class="team-member-info">
+                    <h4 class="team-member-name">Samo Perme uni. dip. ing. elektrotehnike</h4>
+                    <div class="team-member-role" data-translate="role_director">Direktor podjetja</div>
+                    <div class="team-member-contact">
+                        <strong data-translate="email">E-pošta:</strong> <a href="mailto:samo.perme@horizont-clair.si">samo.perme@horizont-clair.si</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Katja Uranič -->
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="pics/UranicK2022.jpg" alt="Katja Uranič" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: UranicK2022.jpg]</div>
+                </div>
+                <div class="team-member-info">
+                    <h4 class="team-member-name">Katja Uranič</h4>
+                    <div class="team-member-role" data-translate="role_accounting">Računovodstvo</div>
+                    <div class="team-member-contact">
+                        <strong data-translate="tel">Tel:</strong> 01 3619 501
+                    </div>
+                </div>
+            </div>
+
+            <!-- Špela Udir -->
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="pics/Udirs2024.jpg" alt="Špela Udir" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: Udirs2024.jpg]</div>
+                </div>
+                <div class="team-member-info">
+                    <h4 class="team-member-name">Špela Udir</h4>
+                    <div class="team-member-role" data-translate="role_bookkeeping">Knjigovodstvo</div>
+                    <div class="team-member-contact">
+                        <strong data-translate="email">E-pošta:</strong> <a href="mailto:spela.udir@horizont-clair.si">spela.udir@horizont-clair.si</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maks Sekirnik -->
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="pics/SekirnikM.jpg" alt="Maks Sekirnik" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: SekirnikM.jpg]</div>
+                </div>
+                <div class="team-member-info">
+                    <h4 class="team-member-name">Maks Sekirnik</h4>
+                    <div class="team-member-role" data-translate="role_commerce_logistics">Komerciala, logistika</div>
+                    <div class="team-member-contact">
+                        <strong data-translate="tel">Tel:</strong> 031 349 992
+                    </div>
+                </div>
+            </div>
+
+            <!-- Predrag Simikič -->
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="pics/SimikicP.jpg" alt="Predrag Simikič" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: SimikicP.jpg]</div>
+                </div>
+                <div class="team-member-info">
+                    <h4 class="team-member-name">Predrag Simikič</h4>
+                    <div class="team-member-role" data-translate="role_commerce_procurement">Komerciala, nabava</div>
+                    <div class="team-member-contact">
+                        <strong data-translate="tel">Tel:</strong> 051 623 735
+                    </div>
+                </div>
+            </div>
+
+            <!-- Barbara Hrovat -->
+            <div class="team-member">
+                <div class="team-member-image">
+                    <img src="pics/HrovatB2022.jpg" alt="Barbara Hrovat" onerror="this.style.display='none'">
+                    <div class="image-placeholder">[Image: HrovatB2022.jpg]</div>
+                </div>
+                <div class="team-member-info">
+                    <h4 class="team-member-name">Barbara Hrovat</h4>
+                    <div class="team-member-role" data-translate="role_commerce">Komerciala</div>
+                    <div class="team-member-contact">
+                        <strong data-translate="email">E-pošta:</strong> <a href="mailto:barbara.hrovat@horizont-clair.si">barbara.hrovat@horizont-clair.si</a><br>
+                        <strong data-translate="tel">Tel:</strong> 031 623 735
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Single column for the remaining team members with maps -->
+        <!-- Alenka Ošlaj -->
+        <div class="team-member">
+            <div class="team-member-image">
+                <img src="pics/alenpod.jpg" alt="Alenka Ošlaj" onerror="this.style.display='none'">
+                <div class="image-placeholder">[Image: alenpod.jpg]</div>
+            </div>
+            <div class="team-member-info-with-map">
+                <h4 class="team-member-name">Alenka Ošlaj ing. agronomije</h4>
+                <div class="team-member-columns">
+                    <div class="team-member-details">
+                        <div class="team-member-role" data-translate="role_alenka">Pokriva področje Pomurja, Prlekije in vzhodne Štajerske</div>
+                        <div class="team-member-contact">
+                            <strong data-translate="email">E-pošta:</strong> <a href="mailto:alenka.oslaj@horizont-clair.si">alenka.oslaj@horizont-clair.si</a><br>
+                            <strong data-translate="gsm">GSM:</strong> 051 302 240
+                        </div>
+                    </div>
+                    <div class="team-member-map">
+                        <div class="map-container">
+                            <img src="pics/slomapal.gif" alt="Alenka Ošlaj" onerror="this.style.display='none'">
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Damjan Hameršek -->
+        <div class="team-member">
+            <div class="team-member-image">
+                <img src="pics/damjan.jpg" alt="Damjan Hameršek" onerror="this.style.display='none'">
+                <div class="image-placeholder">[Image: damjan.jpg]</div>
+            </div>
+            <div class="team-member-info-with-map">
+                <h4 class="team-member-name">Damjan Hameršek</h4>
+                <div class="team-member-columns">
+                    <div class="team-member-details">
+                        <div class="team-member-role" data-translate="role_damjan">Pokriva področje zahodne Štajerske, Koroške, Celjske kotline in Posavja</div>
+                        <div class="team-member-contact">
+                            <strong data-translate="email">E-pošta:</strong> <a href="mailto:damjan.hamersek@horizont-clair.si">damjan.hamersek@horizont-clair.si</a><br>
+                            <strong data-translate="gsm">GSM:</strong> 041 349 992
+                        </div>
+                    </div>
+                    <div class="team-member-map">
+                        <div class="map-container">
+                            <img src="pics/slomapsk.gif" alt="Damjan Hameršek" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dušan Bobnar -->
+        <div class="team-member">
+            <div class="team-member-image">
+                <img src="pics/BobnarD2022.jpg" alt="Dušan Bobnar" onerror="this.style.display='none'">
+                <div class="image-placeholder">[Image: BobnarD2022.jpg]</div>
+            </div>
+            <div class="team-member-info-with-map">
+                <h4 class="team-member-name">Dušan Bobnar</h4>
+                <div class="team-member-columns">
+                    <div class="team-member-details">
+                        <div class="team-member-role" data-translate="role_dusan">Pokriva področje zahodne in južne Slovenije</div>
+                        <div class="team-member-contact">
+                            <strong data-translate="gsm">GSM:</strong> 031 349 991
+                        </div>
+                    </div>
+                    <div class="team-member-map">
+                        <div class="map-container">
+                            <img src="pics/slomaprs.gif" alt="Dušan Bobnar" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Zala Bokal -->
+        <div class="team-member">
+            <div class="team-member-image">
+                <img src="pics/BokalZ2022.jpg" alt="Zala Bokal" onerror="this.style.display='none'">
+                <div class="image-placeholder">[Image: BokalZ2022.jpg]</div>
+            </div>
+            <div class="team-member-info-with-map">
+                <h4 class="team-member-name">Zala Bokal</h4>
+                <div class="team-member-columns">
+                    <div class="team-member-details">
+                        <div class="team-member-role" data-translate="role_zala">Pokriva področje zahodne in južne Slovenije</div>
+                        <div class="team-member-contact">
+                            <strong data-translate="gsm">GSM:</strong> 041 349 991
+                        </div>
+                    </div>
+                    <div class="team-member-map">
+                        <div class="map-container">
+                            <img src="pics/slomapjs.gif" alt="Zala Bokal" onerror="this.style.display='none'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+              <!-- Additional team members would follow the same pattern -->
+            
+           <div class="gallery-section">
+                <h4 class="about-subtitle" data-translate="event_images">Slike z raznih dogodkov</h4>
+                
+                <h5 class="event-title" data-translate="event_25th_anniversary">Jubilejna prireditev Horizont-Clair 25 letnica, Škofja Loka, 2018</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/25let-1.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-2.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-3.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-4.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-5.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-6.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-6.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-7.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-7.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-8.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-8.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-9.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-9.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-10.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-10.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-11.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-11.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-12.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-12.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-13.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-13.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-14.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-14.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-15.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-15.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/25let-16.jpg" alt="Jubilej 25 let" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 25let-16.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_hannover_2016">Sejem Hannover (obisk) jesen 2016</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-1.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-2.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-3.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-4.png" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-4.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-5.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-6.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-6.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-7.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-7.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-8.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-8.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-9.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-9.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-10.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-10.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-11.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-11.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-12.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-12.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-13.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-13.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemHanover2016-14.jpg" alt="Sejem Hannover 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemHanover2016-14.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_komenda_fall_2016">Sejem Komenda jesen 2016</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaJesen2016-1.jpg" alt="Sejem Komenda 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaJesen2016-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaJesen2016-2.jpg" alt="Sejem Komenda 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaJesen2016-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaJesen2016-3.png" alt="Sejem Komenda 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaJesen2016-3.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaJesen2016-5.jpg" alt="Sejem Komenda 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaJesen2016-5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaJesen2016-6.jpg" alt="Sejem Komenda 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaJesen2016-6.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaJesen2016-7.png" alt="Sejem Komenda 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaJesen2016-7.png]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_gudovac_fall_2016">Sejem Gudovac jesen 2016</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-1.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-2.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-3.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-4.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-5.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-6.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-6.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-7.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-7.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemGudovacJesen2016-8.jpg" alt="Sejem Gudovac 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemGudovacJesen2016-8.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_agra_august_2016">Sejem Agra Avgust 2016</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-1.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-2.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-3.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-4.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-5.png" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-5.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-8.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-8.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-9.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-9.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-10.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-10.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra2016-11.jpg" alt="Sejem Agra 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra2016-11.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_komenda_spring_2016">Sejem Komenda Pomlad 2016</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaPomlad2016-1.jpg" alt="Sejem Komenda Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaPomlad2016-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemPomladKomenda2016-2.jpg" alt="Sejem Komenda Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemPomladKomenda2016-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaPomlad2016-3.jpg" alt="Sejem Komenda Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaPomlad2016-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemKomendaPomlad2016-4.jpg" alt="Sejem Komenda Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemKomendaPomlad2016-4.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_gudovac_spring_2016">Sejem Gudovac Pomlad 2016</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/gudovacPomlad2016-2.jpg" alt="Sejem Gudovac Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: gudovacPomlad2016-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/gudovacPomlad2016-5.jpg" alt="Sejem Gudovac Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: gudovacPomlad2016-5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/gudovacPomlad2016-3.jpg" alt="Sejem Gudovac Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: gudovacPomlad2016-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/gudovacPomlad2016-4.jpg" alt="Sejem Gudovac Pomlad 2016" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: gudovacPomlad2016-4.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_komenda_fall_2015">Sejem Komenda Jesen 2015</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/komendaJesen2015-1.jpg" alt="Sejem Komenda Jesen 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: komendaJesen2015-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/komendaJesen2015-2.jpg" alt="Sejem Komenda Jesen 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: komendaJesen2015-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/komendaJesen2015-3.jpg" alt="Sejem Komenda Jesen 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: komendaJesen2015-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/komendaJesen2015-4.jpg" alt="Sejem Komenda Jesen 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: komendaJesen2015-4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/komendaJesen2015-5.jpg" alt="Sejem Komenda Jesen 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: komendaJesen2015-5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/komendaJesen2015-6.jpg" alt="Sejem Komenda Jesen 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: komendaJesen2015-6.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_agra_2015">Sejem Agra 2015 Gornja Radgona</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/agra2015-1.jpg" alt="Sejem Agra 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: agra2015-1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/agra2015-2.jpg" alt="Sejem Agra 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: agra2015-2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/agra2015-3.jpg" alt="Sejem Agra 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: agra2015-3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/agra2015-4.jpg" alt="Sejem Agra 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: agra2015-4.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_excursion_2015">Ekskurzija 2015 na podjetje Horizont v Nemčiji ob 70 letnici proizvodnje pašne opreme</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-1235.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-1235.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-1542.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-1542.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-0738.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-0738.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-0776.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-0776.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-4.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-4.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-6.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-6.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-57.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-57.png]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/izletHor2015-128.png" alt="Ekskurzija Horizont 2015" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: izletHor2015-128.png]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_agra_2013">Sejem Agra Gornja Radgona 2013</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/2013-08-29-424.jpg" alt="Sejem Agra 2013" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2013-08-29-424.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2013-08-29-425.jpg" alt="Sejem Agra 2013" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2013-08-29-425.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2013-08-29-428.jpg" alt="Sejem Agra 2013" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2013-08-29-428.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2013-08-29-430.jpg" alt="Sejem Agra 2013" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2013-08-29-430.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2013-08-29-431.jpg" alt="Sejem Agra 2013" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2013-08-29-431.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2013-08-29-437.jpg" alt="Sejem Agra 2013" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2013-08-29-437.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_agra_2010">Sejem Agra Gornja Radgona 2010</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/Agra 006.JPG" alt="Sejem Agra 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: Agra 006.JPG]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/Agra 016.JPG" alt="Sejem Agra 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: Agra 016.JPG]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/Agra 012.JPG" alt="Sejem Agra 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: Agra 012.JPG]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/Agra 015.JPG" alt="Sejem Agra 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: Agra 015.JPG]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_korbach_2010">Strokovna ekskurzija Korbach (Horizont) | 28 - 30 jan. 2010</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/6hor2010.jpg" alt="Ekskurzija Korbach 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 6hor2010.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/7hor2010.jpg" alt="Ekskurzija Korbach 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 7hor2010.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/4hor2010.jpg" alt="Ekskurzija Korbach 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 4hor2010.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/1hor2010.JPG" alt="Ekskurzija Korbach 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 1hor2010.JPG]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/8hor2010.jpg" alt="Ekskurzija Korbach 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 8hor2010.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/5hor2010.jpg" alt="Ekskurzija Korbach 2010" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 5hor2010.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_agra_2009">Sejem Agra Gornja Radgona | 28 avg. - 5 sep. 2009</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/sejemAGRA1.jpg" alt="Sejem Agra 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAGRA1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra02.jpg" alt="Sejem Agra 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra02.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemeagra06.jpg" alt="Sejem Agra 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemeagra06.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAGRA03.jpg" alt="Sejem Agra 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAGRA03.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAGRAM04.jpg" alt="Sejem Agra 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAGRAM04.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/sejemAgra05.jpg" alt="Sejem Agra 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: sejemAgra05.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_novi_sad_2009">Kmetijski sejem Novi Sad | 10 - 16 maj 2009</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/2009NSsejem2.JPG" alt="Sejem Novi Sad 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009NSsejem2.JPG]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009NSsejem6.JPG" alt="Sejem Novi Sad 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009NSsejem6.JPG]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009NSsejem3.jpg" alt="Sejem Novi Sad 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009NSsejem3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009NSsejem5.JPG" alt="Sejem Novi Sad 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009NSsejem5.JPG]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_hunting_fishing_2009">Sejem lov - ribolov Gornja Radgona | 17 - 19 apr. 2009</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/2009LovRib.jpg" alt="Sejem lov-ribolov 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009LovRib.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009LovRib2.jpg" alt="Sejem lov-ribolov 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009LovRib2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009LovRib3.jpg" alt="Sejem lov-ribolov 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009LovRib3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009LovRib5.jpg" alt="Sejem lov-ribolov 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009LovRib5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009LovRib4.jpg" alt="Sejem lov-ribolov 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009LovRib4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2009LovRib6.jpg" alt="Sejem lov-ribolov 2009" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2009LovRib6.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_store_opening_novi_sad">Otvoritev trgovine v Novem Sadu | 18 okt. 2008</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/2008NSotv1.jpg" alt="Otvoritev Novi Sad 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008NSotv1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2008NSotv2.jpg" alt="Otvoritev Novi Sad 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008NSotv2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2008NSotv3.jpg" alt="Otvoritev Novi Sad 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008NSotv3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2008NSotv4.jpg" alt="Otvoritev Novi Sad 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008NSotv4.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_kzs_2008">KŽS Gornja Radgona | 23 - 29 avg 2008</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/2008grKZS1.jpg" alt="KŽS Gornja Radgona 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008grKZS1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2008grKZS2.jpg" alt="KŽS Gornja Radgona 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008grKZS2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2008grKZS.jpg" alt="KŽS Gornja Radgona 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008grKZS.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2008grKZS3.jpg" alt="KŽS Gornja Radgona 2008" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2008grKZS3.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_store_opening_dogose">Otvoritev trgovine v Dogošah | 08 sep. 2007</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/otv1.jpg" alt="Otvoritev Dogoše 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: otv1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/otv2.jpg" alt="Otvoritev Dogoše 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: otv2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/otv4.jpg" alt="Otvoritev Dogoše 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: otv4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/otv3.jpg" alt="Otvoritev Dogoše 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: otv3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/otv5.jpg" alt="Otvoritev Dogoše 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: otv5.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/otv6.jpg" alt="Otvoritev Dogoše 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: otv6.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_hunting_fishing_2007">Sejem lov ribolov Gornja Radgona | 20 - 22 apr. 2007</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/lovGR1.jpg" alt="Sejem lov-ribolov 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: lovGR1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/lovGr2.jpg" alt="Sejem lov-ribolov 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: lovGr2.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/lovGR3.jpg" alt="Sejem lov-ribolov 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: lovGR3.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_megra_2007">Megra, Gornja Radgona | 27-31 mar. 2007</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/1megra07.jpg" alt="Megra 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 1megra07.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/2megra07.jpg" alt="Megra 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 2megra07.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/3megra07.jpg" alt="Megra 2007" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: 3megra07.jpg]</div>
+                    </div>
+                </div>
+                
+                <h5 class="event-title" data-translate="event_kzs_2006">KŽS Gornja Radgona | 26 avg. - 1 sep. 2006</h5>
+                <div class="gallery-grid">
+                    <div class="gallery-item">
+                        <img src="pics/slsej3.jpg" alt="KŽS Gornja Radgona 2006" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: slsej3.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/slsej1.jpg" alt="KŽS Gornja Radgona 2006" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: slsej1.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/slsej4.jpg" alt="KŽS Gornja Radgona 2006" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: slsej4.jpg]</div>
+                    </div>
+                    <div class="gallery-item">
+                        <img src="pics/slsej2.jpg" alt="KŽS Gornja Radgona 2006" onerror="this.style.display='none'">
+                        <div class="image-placeholder">[Image: slsej2.jpg]</div>
+                    </div>
+                </div>
+
+            </div>
+        
+        </div>
+    </div>
+    
+
+        <!-- Content Display Area for PDFs -->
+        <div class="content-section pdf-container" id="contentDisplay">
+           <!--  <div class="pdf-container"> -->
+                <div class="loading-indicator" id="loadingIndicator">
+                    <div class="spinner-border text-primary" role="status"></div>
+                    <div class="mt-2">Nalagam katalog...</div>
+                </div>
+                <div class="canvas-container" id="pdfViewerContainer"></div>
+                <div class="pdf-controls">
+                    <button class="control-btn" id="prevPage" aria-label="Prejšnja stran">↑</button>
+                    <div class="zoom-level" id="zoomLevel">100%</div>
+                    <button class="control-btn" id="zoomOut">－</button>
+                    <button class="control-btn" id="zoomIn">＋</button>
+                    <button class="control-btn" id="nextPage" aria-label="Naslednja stran">↓</button>
+                </div>
+                <div class="status-bar">
+                     <span data-translate="page">Stran</span>: <span id="currentPage">1</span> <span data-translate="of">od</span> <span id="totalPages">1</span>
+                </div>
+            <!-- </div> → -->
+        </div>
+
+
+
+
+
+
+        
+        <!-- B2B Section -->
+        <div class="content-section b2b-section" id="b2bSection">
+            <div class="b2b-step1" id="b2bStep1">
+                <div class="b2b-step1-title" data-translate="b2bStep1">1.Korak - Vpis Stranke </div>
+                <div class="b2b-step1-content" id="b2bStep1-content"> Content Step 1 </div> 
+            </div>
+        </div>
+
+
+
+
+
+
+
+        
+        <!-- Search Results Section -->
+        <div class="content-section search-results-section" id="searchResultsSection">
+            <div class="search-results-header">
+                <div class="results-count" id="resultsCount">Rezultati iskanja: 0</div>
+            </div>
+            
+            <div id="resultsContainer">
+                <div class="no-results">
+                    <i class="bi bi-search" style="font-size: 48px; margin-bottom: 15px;"></i>
+                    <h4>Začnite z iskanjem</h4>
+                    <p>Vnesite iskalni pojem v polje zgoraj in pritisnite gumb za iskanje.</p>
+                </div>
+            </div>     
+           
+        </div>
+    </div>
+
+
+    <div class="wisdom-container" id="wisdomContainer">
+        <div class="wisdom-content">
+             <button class="wisdom-close-btn" id="wisdomCloseBtn">
+                <i class="bi bi-x"></i>
+            </button>
+            <div class="wisdom-text" id="footerWisdomText"></div>
+        </div>
+    </div> 
+
+    
+     
+
+    <!-- Footer -->
+     <div class="footer-stack">
+
+        <div class="footer-top-line">
+                <svg width="100%" height="16px">
+                    <defs>
+                        <linearGradient id="footerGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#D0001A" />
+                            <stop offset="100%" stop-color="#000000" />
+                        </linearGradient>
+                    </defs>
+                    <rect width="100%" height="16px" fill="url(#footerGradient)" />
+                </svg>
+        </div>
+
+        <footer class="simple-footer" id="footer">            
+            <div class="container">
+                <div class="footer-buttons">
+                    <button class="footer-btn" id="aboutBtn">
+                        <span><i class="bi bi-info-circle"></i> <span data-translate="about_us">O nas</span></span>
+                    </button>
+                    <button class="footer-btn" id="newsBtn">
+                        <span><i class="bi bi-sun"></i> <span data-translate="first_page">Aktualno/Novosti</span></span>
+                    </button>
+                    <button class="footer-btn" id="facebookBtn">
+                        <span><i class="bi bi-facebook"></i> Facebook</span>
+                    </button>
+                    
+                    <!-- E-Trgovine dropdown 
+                    <div class="footer-dropdown" id="shopDropdown">
+                        <button class="footer-btn">
+                            <span><i class="bi bi-cart"></i> <span data-translate="e_shop">E-Trgovine</span></span>
+                        </button>
+                        <div class="footer-dropdown-menu">
+                            <a href="https://www.agro-clair.si" target="_blank" class="footer-dropdown-item">
+                                <i class="bi bi-shop"></i> <span data-translate="retail_shop">Spletna Trgovina (maloprodaja)</span>
+                            </a>
+                            <a href="#" class="footer-dropdown-item" id="b2bBtn">
+                                <i class="bi bi-link-45deg"></i> <span data-translate="b2b_shop">Spletna Veleprodaja (B2B)</span>
+                            </a>
+                        </div>
+                    </div> -->
+
+                    <button class="footer-btn" id="wisdomToggleBtn">
+                        <span><i class="bi bi-lightbulb"></i> <span data-translate="thought_of_day">Misel Dneva</span></span>
+                    </button>
+                </div>
+            </div>   
+        
+        </footer>
+
+    </div>
+
+    
+    <!-- Bootstrap & Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    
+    <script src="js/legacy-app.js"></script>
+</body>
+</html>
