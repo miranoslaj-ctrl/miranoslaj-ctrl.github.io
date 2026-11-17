@@ -49,3 +49,8 @@
     width: 100%; height: auto; object-fit: contain;
   }
 }
+
+/* v0.3.3: keep PDF canvas at its actual rendered CSS size. */
+#pdfViewerContainer .page-container canvas { max-width: none !important; }
+#pdfViewerContainer .page-container { align-self: flex-start; }
+#pdfViewerContainer .page-container .highlight-overlay { pointer-events: none; }
