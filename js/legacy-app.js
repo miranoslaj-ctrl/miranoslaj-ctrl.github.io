@@ -1126,8 +1126,8 @@ async function searchInPdfs(query, useStemming) {
                     
                     const x = transform[4];
                     const y = transform[5];
-                    const width = item.width * pdfViewer.currentZoom;
-                    const height = item.height * pdfViewer.currentZoom;
+                    const width = item.width * viewport.scale;
+                    const height = item.height * viewport.scale;
                     
                     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
                     rect.setAttribute('x', x);
@@ -1573,30 +1573,78 @@ function showFooterWisdom() {
         }
     }, { passive: true });
 
-    // v0.3.2: Touch gestures in the PDF frame. CSS zoom scales the canvas AND
-    // its search highlights together, without re-fetching or re-rendering pages.
-    // A one-finger gesture scrolls the viewer; two fingers pinch around midpoint.
-    const pdfGesture = { pointers: new Map(), startDistance: 0, startZoom: 1, lastX: 0, lastY: 0 };
+    // v0.3.3: Pinch/ctrl-wheel zoom re-renders PDF.js canvases at the
+    // requested scale. Never enlarge an existing bitmap with CSS zoom.
+    const pdfGesture = { pointers: new Map(), startDistance: 0, startZoom: 1 };
     let pdfTouchZoom = 1;
-    function setPDFTouchZoom(value, x, y) {
-        const next = Math.max(1, Math.min(3.5, value));
-        if (Math.abs(next - pdfTouchZoom) < 0.001) return;
-        const rect = pdfViewerContainer.getBoundingClientRect();
-        const localX = x - rect.left;
-        const localY = y - rect.top;
-        const factor = next / pdfTouchZoom;
-        const oldLeft = pdfViewerContainer.scrollLeft;
-        const oldTop = pdfViewerContainer.scrollTop;
-        pdfTouchZoom = next;
-        pdfViewerContainer.querySelectorAll('.page-container').forEach(slot => {
-            slot.style.zoom = String(next);
-        });
-        pdfViewerContainer.scrollLeft = (oldLeft + localX) * factor - localX;
-        pdfViewerContainer.scrollTop = (oldTop + localY) * factor - localY;
-    }
+    let pdfZoomTimer = null;
+    let zoomRequestSerial = 0;
+
     function pdfDistance(points) {
         return Math.hypot(points[0].x - points[1].x, points[0].y - points[1].y);
     }
+
+    function zoomAnchor(clientX, clientY) {
+        const frame = pdfViewerContainer.getBoundingClientRect();
+        const localY = Math.max(0, Math.min(frame.height, clientY - frame.top));
+        const localX = Math.max(0, Math.min(frame.width, clientX - frame.left));
+        const contentY = pdfViewerContainer.scrollTop + localY;
+        const slots = [...pdfViewerContainer.querySelectorAll('.page-container')];
+        const slot = slots.find(el => contentY >= el.offsetTop - pdfViewerContainer.offsetTop &&
+            contentY < el.offsetTop - pdfViewerContainer.offsetTop + el.offsetHeight) ||
+            slots.find(el => Number(el.dataset.pageNumber) === pdfViewer.currentPage);
+        if (!slot) return null;
+        const slotTop = slot.offsetTop - pdfViewerContainer.offsetTop;
+        return {
+            page: Number(slot.dataset.pageNumber),
+            fraction: Math.max(0, Math.min(1, (contentY - slotTop) / Math.max(1, slot.offsetHeight))),
+            localX, localY,
+            contentX: pdfViewerContainer.scrollLeft + localX,
+            oldZoom: pdfTouchZoom
+        };
+    }
+
+    function scheduleSharpPDFZoom(clientX, clientY, immediate = false, preservedAnchor = null) {
+        const anchor = preservedAnchor || zoomAnchor(clientX, clientY);
+        const requestedZoom = pdfTouchZoom;
+        const serial = ++zoomRequestSerial;
+        clearTimeout(pdfZoomTimer);
+        pdfZoomTimer = setTimeout(async () => {
+            if (!pdfViewer.doc || serial !== zoomRequestSerial) return;
+            const generation = ++pdfRenderGeneration;
+            const slots = [...pdfViewerContainer.querySelectorAll('.page-container')];
+            // Rendering the focused page first keeps zoom responsive; the
+            // remaining pages follow without losing the catalogue or history.
+            const focusPage = anchor ? anchor.page : pdfViewer.currentPage;
+            const ordered = [...slots].sort((a, b) =>
+                Math.abs(Number(a.dataset.pageNumber) - focusPage) -
+                Math.abs(Number(b.dataset.pageNumber) - focusPage));
+            for (const slot of ordered) {
+                if (generation !== pdfRenderGeneration || serial !== zoomRequestSerial) return;
+                const pageNumber = Number(slot.dataset.pageNumber);
+                await renderPage(pageNumber, slot, generation, requestedZoom);
+                if (anchor && pageNumber === anchor.page && generation === pdfRenderGeneration) {
+                    const newTop = slot.offsetTop - pdfViewerContainer.offsetTop;
+                    pdfViewerContainer.scrollTop = newTop + anchor.fraction * slot.offsetHeight - anchor.localY;
+                    pdfViewerContainer.scrollLeft = anchor.contentX * requestedZoom / anchor.oldZoom - anchor.localX;
+                }
+            }
+        }, immediate ? 0 : 170);
+    }
+
+    function setPDFTouchZoom(value, x, y, immediate = false) {
+        const next = Math.max(1, Math.min(3.5, value));
+        if (Math.abs(next - pdfTouchZoom) < 0.001) return;
+        // Store the previous zoom for focal-point preservation.
+        const oldZoom = pdfTouchZoom;
+        const anchor = zoomAnchor(x, y);
+        pdfTouchZoom = next;
+        if (anchor) anchor.oldZoom = oldZoom;
+        // Rendering is delayed during the gesture, rather than stretching
+        // low-resolution pixels on every pointer movement.
+        scheduleSharpPDFZoom(x, y, immediate, anchor);
+    }
+
     pdfViewerContainer.addEventListener('pointerdown', event => {
         if (event.pointerType !== 'touch') return;
         pdfGesture.pointers.set(event.pointerId, { x: event.clientX, y: event.clientY });
@@ -1630,32 +1678,46 @@ function showFooterWisdom() {
     }
     pdfViewerContainer.addEventListener('pointerup', endPDFPointer);
     pdfViewerContainer.addEventListener('pointercancel', endPDFPointer);
-    // Desktop test: hold Ctrl and use the mouse wheel over the PDF frame.
     pdfViewerContainer.addEventListener('wheel', event => {
         if (!event.ctrlKey) return;
         event.preventDefault();
         setPDFTouchZoom(pdfTouchZoom * (event.deltaY < 0 ? 1.12 : 1 / 1.12), event.clientX, event.clientY);
     }, { passive: false });
     function resetPDFTouchZoom() {
+        clearTimeout(pdfZoomTimer);
+        ++zoomRequestSerial;
         pdfTouchZoom = 1;
         pdfGesture.pointers.clear();
     }
 
     // Enhanced renderPage function with proper text highlighting
-    async function renderPage(pageNum, pageContainer, generation) {
+    async function renderPage(pageNum, pageContainer, generation, requestedZoom = pdfTouchZoom) {
         const page = await pdfViewer.doc.getPage(pageNum);
         if (generation !== pdfRenderGeneration) return;
         const baseViewport = page.getViewport({ scale: 1 });
         const availableWidth = Math.max(1, pdfViewerContainer.clientWidth - 24);
         const fitScale = Math.min(1.6, availableWidth / baseViewport.width);
-        const viewport = page.getViewport({ scale: fitScale });
+        const viewport = page.getViewport({ scale: fitScale * requestedZoom });
+        const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
         const canvas = document.createElement('canvas');
         const context = canvas.getContext('2d');
-        canvas.height = Math.ceil(viewport.height);
-        canvas.width = Math.ceil(viewport.width);
-        pageContainer.insertBefore(canvas, pageContainer.firstChild);
-        await page.render({ canvasContext: context, viewport }).promise;
+        canvas.width = Math.ceil(viewport.width * pixelRatio);
+        canvas.height = Math.ceil(viewport.height * pixelRatio);
+        canvas.style.width = `${viewport.width}px`;
+        canvas.style.height = `${viewport.height}px`;
+        // A scaled render transform improves text and vector sharpness on
+        // high-DPI Android displays without changing the CSS layout size.
+        await page.render({
+            canvasContext: context, viewport,
+            transform: pixelRatio === 1 ? undefined : [pixelRatio, 0, 0, pixelRatio, 0, 0]
+        }).promise;
         if (generation !== pdfRenderGeneration) return;
+        const previous = pageContainer.querySelector('canvas');
+        if (previous) previous.replaceWith(canvas);
+        else pageContainer.insertBefore(canvas, pageContainer.firstChild);
+        pageContainer.style.width = `${viewport.width}px`;
+        // Keep SVG highlighting in the exact same coordinate system as the
+        // CSS-sized canvas, including after re-rendering at higher zoom.
         if (currentSearchTerms.length > 0) {
             try {
                 const textContent = await page.getTextContent();
@@ -1680,8 +1742,8 @@ function showFooterWisdom() {
         overlay.style.position = 'absolute';
         overlay.style.top = '0';
         overlay.style.left = '0';
-        overlay.style.width = '100%';
-        overlay.style.height = '100%';
+        overlay.style.width = `${viewport.width}px`;
+        overlay.style.height = `${viewport.height}px`;
         overlay.style.pointerEvents = 'none'; // Allow clicks to pass through to the canvas
         
         container.style.position = 'relative';
@@ -1724,8 +1786,8 @@ function showFooterWisdom() {
                     
                     const x = transform[4];
                     const y = transform[5];
-                    const width = item.width * pdfViewer.currentZoom;
-                    const height = item.height * pdfViewer.currentZoom;
+                    const width = item.width * viewport.scale;
+                    const height = item.height * viewport.scale;
                     
                     // Create highlight rectangle
                     const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
